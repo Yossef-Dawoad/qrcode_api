@@ -1,13 +1,13 @@
 # First stage: build the app
-FROM python:latest as builder
+FROM python:3.10 AS builder
 ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 COPY requirements.prod.txt requirements.txt
-RUN python -m pip install --upgrade pip
-RUN pip install -r requirements.txt --target=/app --no-cache-dir
+RUN python -m pip install --upgrade pip && \
+    pip install -r requirements.txt --target=/app --no-cache-dir --require-hashes
 
 # Second stage: copy the app and run it
-FROM python:slim
+FROM python:3.10-slim
 WORKDIR /app
 #copy from builder to the slim version
 COPY --from=builder /app /app/
