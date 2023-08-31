@@ -2,8 +2,9 @@ import logging
 import sys
 
 from fastapi import FastAPI
-from logs.logconfig import init_loggers
-from qrcode.routes import free_routes, pro_routes
+
+from app.logs.logconfig import init_loggers
+from app.qrcode.routes import free_routes, pro_routes
 
 print(sys.path)
 

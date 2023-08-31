@@ -1,19 +1,17 @@
 # First stage: build the app
 FROM python:3.10 AS builder
 ENV PYTHONUNBUFFERED=1
-WORKDIR /app
+WORKDIR /code
 COPY requirements.prod.txt requirements.txt
 RUN python -m pip install --upgrade pip && \
     pip install -r requirements.txt --target=/app --no-cache-dir --require-hashes
 
 # Second stage: copy the app and run it
 FROM python:3.10-slim
-WORKDIR /app
+WORKDIR /code
 #copy from builder to the slim version
-COPY --from=builder /app /app/
+COPY --from=builder /code /code/
 # copy the application to the /app directory
 
-COPY ./app /app
-RUN apt update && apt install -y tree && tree
-EXPOSE 8080
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "$PORT"]
+COPY ./app code/app
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
