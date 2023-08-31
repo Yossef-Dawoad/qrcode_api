@@ -1,9 +1,8 @@
 import logging
 
 from fastapi import FastAPI
-
-from .logs.logconfig import init_loggers
-from .qrcode.routes import free_routes, pro_routes
+from logs.logconfig import init_loggers
+from qrcode.routes import free_routes, pro_routes
 
 # init our logger
 init_loggers(logger_name="app-logs")
