@@ -16,9 +16,7 @@ log = logging.getLogger("app-logs")
 app = FastAPI(docs_url="/")
 
 
-app.get('/health-check')
-
-
+@app.get('/health-check')
 def health_check() -> dict:
     return {'status': r'100% good'}
 
