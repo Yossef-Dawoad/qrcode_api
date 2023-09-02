@@ -20,7 +20,9 @@ def generate_qr(data: BaseUserConfigration) -> BytesIO:
 
 
 def generate_qr_uri(data: BaseUserConfigration) -> str:
-    return segno.make(data.content, error=data.error_correction, micro=False).png_data_uri(
+    return segno.make(
+        data.content, error=data.error_correction, micro=False,
+    ).png_data_uri(
         dark=data.color,
         scale=data.scale,
     )
@@ -45,11 +47,11 @@ def generate_pro_qr(data: ProUserConfigration) -> BytesIO:
 
 
 def generate_pro_qr_uri(data: ProUserConfigration) -> str:
-    return (
-        segno.make(data.content, error=data.error_correction, micro=False).png_data_uri(
-            dark=data.color,
-            light=data.background_color,
-            scale=data.scale,
-            border=data.border if not data.transparent else 0,
-        )
+    return segno.make(
+        data.content, error=data.error_correction, micro=False,
+    ).png_data_uri(
+        dark=data.color,
+        light=data.background_color,
+        scale=data.scale,
+        border=data.border if not data.transparent else 0,
     )

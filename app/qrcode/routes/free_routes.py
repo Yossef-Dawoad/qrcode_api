@@ -5,8 +5,8 @@ from ..schemas import BaseUserConfigration
 from ..utils import generate_qr, generate_qr_uri
 
 router = APIRouter(
-    prefix='/qrcode',
-    tags=['free apis for qrcode '],
+    prefix="/qrcode",
+    tags=["free apis for qrcode "],
 )
 
 

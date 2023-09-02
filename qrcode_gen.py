@@ -1,10 +1,10 @@
 import time
 from io import BytesIO
-import segno
-from segno import helpers
-from PIL import Image
 from urllib.request import urlopen
 
+import segno
+from PIL import Image
+from segno import helpers
 
 t1 = time.perf_counter()
 qrcode = segno.make_qr("Welcome", error="H")
@@ -33,7 +33,7 @@ print(f"{t:0.2f}s")
 
 
 qrcode = helpers.make_mecard(
-    name="Shittu Olumide", email="me@example.com", phone="+123456789"
+    name="Shittu Olumide", email="me@example.com", phone="+123456789",
 )
 qrcode.designator
 "3-L"
@@ -48,7 +48,7 @@ qrcode.save("examples/mycontact.png", scale=5)
 t1 = time.perf_counter()
 qrcode = segno.make("Yellow Submarine", error="h")
 img = qrcode.to_pil(
-    scale=4, dark="darkred", data_dark="darkorange", data_light="yellow"
+    scale=4, dark="darkred", data_dark="darkorange", data_light="yellow",
 )
 print(time.perf_counter() - t1)
 print(type(img))
@@ -58,7 +58,7 @@ img.save("./examples/yellow-submarine.png")
 out = BytesIO()
 # Nothing special here, let Segno generate the QR code and save it as PNG in a buffer
 segno.make("Blackbird singing in the dead of night", error="h").save(
-    out, scale=10, kind="png"
+    out, scale=10, kind="png",
 )
 out.seek(0)  # Important to let Pillow load the PNG
 

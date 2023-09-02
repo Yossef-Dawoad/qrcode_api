@@ -6,7 +6,7 @@ from ..utils import generate_pro_qr, generate_pro_qr_uri
 
 router = APIRouter(
     prefix="/pro/qrcode",
-    tags=['premium apis for qrcode'],
+    tags=["premium apis for qrcode"],
 )
 
 

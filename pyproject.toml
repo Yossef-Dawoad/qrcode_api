@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = {extras = ["all"], version = "^0.103.0"}
+fastapi = { extras = ["all"], version = "^0.103.0" }
 uvicorn = "^0.23.2"
 segno = "^1.5.2"
 qrcode-artistic = "^2.1.0"
@@ -52,6 +52,7 @@ ignore = ['E501', 'SIM115', 'ANN101', "UP007"]
 [tool.black]
 line-length = 88
 target-version = ["py310"]
+max-complexity = 10
 exclude = '''
 /(
     \.eggs

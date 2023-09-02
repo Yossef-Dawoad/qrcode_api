@@ -30,9 +30,7 @@ def check_size(v: Optional[int]) -> int:
     SCALE_LIMIT = 30
     assert (
         v is not None
-    ) and 1 < v < SCALE_LIMIT, (
-        f"you entered scale ={v}, free qr-code generation have to be between 1 and {SCALE_LIMIT}"
-    )
+    ) and 1 < v < SCALE_LIMIT, f"you entered scale ={v}, free qr-code generation have to be between 1 and {SCALE_LIMIT}"
     return v
 
 
@@ -47,8 +45,7 @@ class BaseUserConfigration(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     @model_validator(mode="after")
-    def set_response_media_type(self) -> 'BaseUserConfigration':
-
+    def set_response_media_type(self) -> "BaseUserConfigration":
         match self.format:
             case OutputType.PNG_IMAGE:
                 self.media_type = "image/png"
@@ -71,13 +68,13 @@ class ProUserConfigration(BaseUserConfigration):
     output_format: Optional[ProOutputType] = ProOutputType.PNG_IMAGE
 
     @model_validator(mode="after")
-    def set_borderto_zero(self) -> 'ProUserConfigration':
+    def set_borderto_zero(self) -> "ProUserConfigration":
         if self.transparent:
             self.border = 0
         return self
 
     @model_validator(mode="after")
-    def set_response_media_type(self) -> 'ProUserConfigration':
+    def set_response_media_type(self) -> "ProUserConfigration":
         match self.output_format:
             case ProOutputType.PNG_IMAGE:
                 self.media_type = "image/png"
@@ -86,8 +83,7 @@ class ProUserConfigration(BaseUserConfigration):
             case ProOutputType.SVG_IMAGE:
                 self.media_type = "image/svg+xml"
             case ProOutputType.JPEG_IMAGE:
-                raise NotImplementedError(
-                    "JPEG to be implemented use 'PNG' Instead")
+                raise NotImplementedError("JPEG to be implemented use 'PNG' Instead")
             case _:
                 raise ValueError(f"Invalid export_type: {self.output_format}")
 

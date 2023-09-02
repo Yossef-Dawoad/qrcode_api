@@ -13,7 +13,7 @@ print(sys.path)
 init_loggers(logger_name="app-logs")
 log = logging.getLogger("app-logs")
 
-app = FastAPI(docs_url='/')
+app = FastAPI(docs_url="/")
 
 app.include_router(free_routes.router)
 app.include_router(pro_routes.router)
