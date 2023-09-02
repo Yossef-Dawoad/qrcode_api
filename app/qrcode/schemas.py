@@ -1,8 +1,13 @@
+from collections.abc import Iterable
+from datetime import datetime
 from enum import Enum
-from typing import Annotated, Optional
+from typing import Annotated, Optional, TypeAlias
 
-from pydantic import BaseModel, ConfigDict, model_validator
+from pydantic import AnyUrl, BaseModel, ConfigDict, EmailStr, model_validator, validator
 from pydantic.functional_validators import AfterValidator
+from pydantic_extra_types.phone_numbers import PhoneNumber
+
+ItrableOfStr: TypeAlias = list[str] | tuple[str, ...]
 
 
 class ErrorLevel(str, Enum):
@@ -38,7 +43,7 @@ class BaseUserConfigration(BaseModel):
     content: str
     scale: Annotated[Optional[int], AfterValidator(check_size)] = 10
     color: Optional[str] = "#000000"
-    format: Optional[OutputType] = OutputType.PNG_IMAGE
+    output_format: Optional[OutputType] = OutputType.PNG_IMAGE
     error_correction: Optional[ErrorLevel] = ErrorLevel.LEVEL_H
     media_type: str = "image/png"
 
@@ -46,7 +51,7 @@ class BaseUserConfigration(BaseModel):
 
     @model_validator(mode="after")
     def set_response_media_type(self) -> "BaseUserConfigration":
-        match self.format:
+        match self.output_format:
             case OutputType.PNG_IMAGE:
                 self.media_type = "image/png"
             case _:
@@ -83,8 +88,31 @@ class ProUserConfigration(BaseUserConfigration):
             case ProOutputType.SVG_IMAGE:
                 self.media_type = "image/svg+xml"
             case ProOutputType.JPEG_IMAGE:
-                raise NotImplementedError("JPEG to be implemented use 'PNG' Instead")
+                raise NotImplementedError(
+                    "JPEG to be implemented use 'PNG' Instead")
             case _:
                 raise ValueError(f"Invalid export_type: {self.output_format}")
 
         return self
+
+
+class vCardUserConfigration(ProUserConfigration):
+    # vcard info
+    first_name:  str
+    last_name:   str | None = ""
+    displayname: str | None = None
+    phone:       PhoneNumber | Iterable[PhoneNumber] | None
+    workphone:   str | ItrableOfStr | None
+    fax:         str | None
+    memo:        str | None
+    email:       EmailStr | Iterable[EmailStr] | None
+    job_title:   str | ItrableOfStr | None
+    photo_uri:   str | ItrableOfStr | None
+    birthday:    datetime | None
+    website:     AnyUrl | list[AnyUrl] | None
+
+    @validator("website")
+    def ensure_list(cls: 'vCardUserConfigration', v: AnyUrl | list[AnyUrl]) -> list[AnyUrl]:
+        if isinstance(v, AnyUrl):
+            return [v]
+        return v
