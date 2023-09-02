@@ -6,7 +6,7 @@ authors = ["Yossef-Dawoad <yossefdawoad15@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 fastapi = { extras = ["all"], version = "^0.103.0" }
 uvicorn = "^0.23.2"
 segno = "^1.5.2"
@@ -44,14 +44,14 @@ extend-select = [
 ]
 # fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]
 show-fixes = true
-target-version = "py310"
+target-version = "py39"
 line-length = 88
 ignore = ['E501', 'SIM115', 'ANN101', "UP007"]
 
 
 [tool.black]
 line-length = 88
-target-version = ["py310"]
+target-version = ["py39"]
 max-complexity = 10
 exclude = '''
 /(

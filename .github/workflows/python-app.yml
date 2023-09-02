@@ -34,12 +34,10 @@ jobs:
 
             - name: Lint with ruff
               run: |
-                  pip install ruff
                   ruff check . --fix
 
             - name: Test with pytest
               run: |
-                  pip install pytest
                   pytest
 
             - name: Build & push Docker image
