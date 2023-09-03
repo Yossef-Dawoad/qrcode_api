@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /tmp
 COPY requirements.prod.txt requirements.txt
 RUN python -m pip install --upgrade pip && \
-    pip install -r requirements.txt --target=/app --no-cache-dir --require-hashes
+    pip install -r requirements.txt --target=/tmp --no-cache-dir --require-hashes
 
 # Second stage: copy the app and run it
 FROM --platform=linux/amd64 python:3.11-slim
