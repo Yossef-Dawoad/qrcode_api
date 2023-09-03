@@ -13,7 +13,7 @@ FROM --platform=linux/amd64 python:3.11-slim
 
 WORKDIR /code
 #copy from requirements-stage to the slim version code dir
-COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=requirements-app-stage /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 COPY --from=requirements-app-stage /tmp/app /code/app
 EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
