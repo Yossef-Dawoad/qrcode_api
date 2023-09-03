@@ -191,6 +191,9 @@ orjson==3.9.5 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:fa504082f53efcbacb9087cc8676c163237beb6e999d43e72acb4bb6f0db11e6 \
     --hash=sha256:ff27e98532cb87379d1a585837d59b187907228268e7b0a87abe122b2be6968e \
     --hash=sha256:ffc544e0e24e9ae69301b9a79df87a971fa5d1c20a6b18dca885699709d01be0
+phonenumbers==8.13.19 ; python_version >= "3.10" and python_version < "4.0" \
+    --hash=sha256:38180247697240ccedd74dec4bfbdbc22bb108b9c5f991f270ca3e41395e6f96 \
+    --hash=sha256:ba542f20f6dc83be8f127f240f9b5b7e7c1dec42aceff1879400d4dc0c781d81
 pydantic-core==2.6.3 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:002d0ea50e17ed982c2d65b480bd975fc41086a5a2f9c924ef8fc54419d1dea3 \
     --hash=sha256:02e1c385095efbd997311d85c6021d32369675c09bcbfff3b69d84e59dc103f6 \

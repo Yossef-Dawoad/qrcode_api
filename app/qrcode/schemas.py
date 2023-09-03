@@ -95,13 +95,16 @@ class ProUserConfigration(BaseUserConfigration):
 
         return self
 
+# vcard type configrations schema
+
 
 class vCardUserConfigration(ProUserConfigration):
     # vcard info
     first_name:  str
     last_name:   str | None = ""
     displayname: str | None = None
-    phone:       PhoneNumber | Iterable[PhoneNumber] | None
+    phone:       str | Iterable[str] | None
+    company:     str | None
     workphone:   str | ItrableOfStr | None
     fax:         str | None
     memo:        str | None
@@ -112,7 +115,7 @@ class vCardUserConfigration(ProUserConfigration):
     website:     AnyUrl | list[AnyUrl] | None
 
     @validator("website")
-    def ensure_list(cls: 'vCardUserConfigration', v: AnyUrl | list[AnyUrl]) -> list[AnyUrl]:
+    def ensure_website_list(cls: 'vCardUserConfigration', v: AnyUrl | list[AnyUrl]) -> list[AnyUrl]:
         if isinstance(v, AnyUrl):
             return [v]
         return v

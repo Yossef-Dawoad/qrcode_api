@@ -72,6 +72,7 @@ def generate_pro_qr_vcard(data: vCardUserConfigration) -> BytesIO:
         title=data.job_title,
         photo_uri=data.photo_uri,
         birthday=data.birthday,
+        org=data.company,
     ).save(
         buff,
         kind=data.output_format,
