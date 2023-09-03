@@ -5,7 +5,8 @@ from typing import Annotated, Optional, TypeAlias
 
 from pydantic import AnyUrl, BaseModel, ConfigDict, EmailStr, model_validator, validator
 from pydantic.functional_validators import AfterValidator
-from pydantic_extra_types.phone_numbers import PhoneNumber
+
+# from pydantic_extra_types.phone_numbers import PhoneNumber
 
 ItrableOfStr: TypeAlias = list[str] | tuple[str, ...]
 
