@@ -9,9 +9,11 @@ RUN python -m pip install --upgrade pip && \
 
 # Second stage: copy the app and run it
 FROM --platform=linux/amd64 python:3.11-slim
+
 WORKDIR /code
 #copy from requirements-stage to the slim version code dir
 COPY --from=requirements-stage /tmp /code/
 COPY ./app /code/app
 EXPOSE 8000
+ENV PYTHONPATH=/code
 CMD uvicorn app.main:app --host 0.0.0.0 --port 8000
