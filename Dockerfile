@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /tmp
 COPY requirements.prod.txt tmp/requirements.txt
 RUN python -m pip install --upgrade pip && \
-    pip install -r code/requirements.txt --no-cache-dir --require-hashes 
+    pip install -r tmp/requirements.txt --no-cache-dir --require-hashes 
 COPY ./app /tmp/app
 
 # Second stage: copy the app and run it
