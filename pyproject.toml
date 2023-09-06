@@ -12,6 +12,7 @@ uvicorn = "^0.23.2"
 segno = "^1.5.2"
 qrcode-artistic = "^2.1.0"
 phonenumbers = "^8.13.19"
+slowapi = "^0.1.8"
 
 
 [tool.poetry.group.dev.dependencies]

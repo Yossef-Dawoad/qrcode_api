@@ -1,5 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from fastapi.responses import StreamingResponse
+
+from app import limiter
 
 from ..schemas import BaseUserConfigration
 from ..utils import generate_qr, generate_qr_uri
@@ -11,7 +13,8 @@ router = APIRouter(
 
 
 @router.post("/generate-uri")
-def generate_qrcode_uri(data: BaseUserConfigration) -> dict[str, str]:
+@limiter.limit("80/hour;500/day")
+def generate_qrcode_uri(request: Request, data: BaseUserConfigration) -> dict[str, str]:
     """
     Generate a QR code as PNG Data URI for the given data.
     """
@@ -22,7 +25,8 @@ def generate_qrcode_uri(data: BaseUserConfigration) -> dict[str, str]:
 
 
 @router.post("/generate")
-def generate_qrcode_image_post(data: BaseUserConfigration) -> StreamingResponse:
+@limiter.limit("80/hour;500/day")
+def generate_qrcode_image_post(request: Request, data: BaseUserConfigration) -> StreamingResponse:
     """
     Generate a QR code for the given data.
     """
