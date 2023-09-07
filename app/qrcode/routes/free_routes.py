@@ -13,7 +13,7 @@ router = APIRouter(
 
 
 @router.post("/generate-uri")
-@limiter.limit("80/hour;500/day")
+@limiter.limit("80/hour;300/day")
 def generate_qrcode_uri(request: Request, data: BaseUserConfigration) -> dict[str, str]:
     """
     Generate a QR code as PNG Data URI for the given data.
@@ -25,7 +25,7 @@ def generate_qrcode_uri(request: Request, data: BaseUserConfigration) -> dict[st
 
 
 @router.post("/generate")
-@limiter.limit("80/hour;500/day")
+@limiter.limit("80/hour;300/day")
 def generate_qrcode_image_post(request: Request, data: BaseUserConfigration) -> StreamingResponse:
     """
     Generate a QR code for the given data.
