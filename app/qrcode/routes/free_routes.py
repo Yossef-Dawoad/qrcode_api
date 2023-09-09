@@ -3,7 +3,7 @@ from fastapi.responses import StreamingResponse
 
 from app import limiter
 
-from ..schemas import BaseUserConfigration
+from ..schemas import BaseUserConfigration, ImageUriResponse
 from ..utils import generate_qr, generate_qr_uri
 
 router = APIRouter(
@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 
-@router.post("/generate-uri")
+@router.post("/generate-uri", response_model=ImageUriResponse)
 @limiter.limit("80/hour;300/day")
 def generate_qrcode_uri(request: Request, data: BaseUserConfigration) -> dict[str, str]:
     """

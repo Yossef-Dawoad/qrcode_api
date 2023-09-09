@@ -120,3 +120,7 @@ class vCardUserConfigration(ProUserConfigration):
         if isinstance(v, AnyUrl):
             return [v]
         return v
+
+
+class ImageUriResponse:
+    image: str

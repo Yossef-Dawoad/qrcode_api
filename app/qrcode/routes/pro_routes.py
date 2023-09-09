@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 
-from ..schemas import ProUserConfigration, vCardUserConfigration
+from ..schemas import ImageUriResponse, ProUserConfigration, vCardUserConfigration
 from ..utils import generate_pro_qr, generate_pro_qr_uri, generate_pro_qr_vcard
 
 router = APIRouter(
@@ -10,7 +10,7 @@ router = APIRouter(
 )
 
 
-@router.post("/generate-uri")
+@router.post("/generate-uri", response_model=ImageUriResponse)
 def generate_pro_qrcode_uri(data: ProUserConfigration) -> dict:
     """
     Generate a QR code as PNG Data URI for the given data.
