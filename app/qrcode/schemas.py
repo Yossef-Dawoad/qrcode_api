@@ -3,12 +3,25 @@ from datetime import datetime
 from enum import Enum
 from typing import Annotated, Optional, TypeAlias
 
-from pydantic import AnyUrl, BaseModel, ConfigDict, EmailStr, model_validator, validator
+from pydantic import (
+    AnyUrl,
+    BaseModel,
+    ConfigDict,
+    EmailStr,
+    Field,
+    model_validator,
+    validator,
+)
 from pydantic.functional_validators import AfterValidator
 
 # from pydantic_extra_types.phone_numbers import PhoneNumber
 
 ItrableOfStr: TypeAlias = list[str] | tuple[str, ...]
+
+
+class WiFiSecurityType(str, Enum):
+    WPA = "WPA"
+    WEP = "WEP"
 
 
 class ErrorLevel(str, Enum):
@@ -115,11 +128,31 @@ class vCardUserConfigration(ProUserConfigration):
     birthday:    datetime | None
     website:     AnyUrl | list[AnyUrl] | None
 
+    # fields to be excluded
+    content: str | None = Field(default=None, exclude=True)
+
     @validator("website")
     def ensure_website_list(cls: 'vCardUserConfigration', v: AnyUrl | list[AnyUrl]) -> list[AnyUrl]:
         if isinstance(v, AnyUrl):
             return [v]
         return v
+
+
+class WiFiUserConfigration(ProUserConfigration):
+    ssid: str = 'My network'
+    password: str = 'secret'
+    security: WiFiSecurityType | None = WiFiSecurityType.WPA
+    hidden: bool = False
+    # fields to be excluded
+    content: str | None = Field(default=None, exclude=True)
+
+
+class GeoUserConfigration(ProUserConfigration):
+    latitude: float = 38.8976763
+    longitude: float = -77.0365297
+
+    # fields to be excluded
+    content: str | None = Field(default=None, exclude=True)
 
 
 class ImageUriResponse(BaseModel):

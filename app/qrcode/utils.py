@@ -3,7 +3,13 @@ from io import BytesIO
 import segno
 from segno import helpers
 
-from .schemas import BaseUserConfigration, ProUserConfigration, vCardUserConfigration
+from .schemas import (
+    BaseUserConfigration,
+    GeoUserConfigration,
+    ProUserConfigration,
+    WiFiUserConfigration,
+    vCardUserConfigration,
+)
 
 
 def generate_qr(data: BaseUserConfigration) -> BytesIO:
@@ -81,5 +87,45 @@ def generate_pro_qr_vcard(data: vCardUserConfigration) -> BytesIO:
         scale=data.scale,
         border=data.border if not data.transparent else 0,
     )
+    buff.seek(0)
+    return buff
+
+
+def generate_pro_qr_wifi(data: WiFiUserConfigration) -> BytesIO:
+    buff = BytesIO()
+    wifi_config = helpers.make_wifi_data(
+        ssid=data.ssid,
+        password=data.password,
+        security=data.security,
+        hidden=data.hidden,
+    )
+    segno.make(wifi_config, error=data.error_correction, micro=False).save(
+        buff,
+        kind=data.output_format,
+        dark=data.color,
+        light=data.background_color,
+        scale=data.scale,
+        border=data.border if not data.transparent else 0,
+    )
+
+    buff.seek(0)
+    return buff
+
+
+def generate_pro_qr_geo(data: GeoUserConfigration) -> BytesIO:
+    buff = BytesIO()
+    geo_config = helpers.make_geo_data(
+        lat=data.latitude,
+        lng=data.longitude,
+    )
+    segno.make(geo_config, error=data.error_correction, micro=False).save(
+        buff,
+        kind=data.output_format,
+        dark=data.color,
+        light=data.background_color,
+        scale=data.scale,
+        border=data.border if not data.transparent else 0,
+    )
+
     buff.seek(0)
     return buff
