@@ -14,7 +14,7 @@ router = APIRouter(
 
 @router.post("/generate-uri", response_model=ImageUriResponse)
 @limiter.limit("80/hour;300/day")
-def generate_qrcode_uri(request: Request, data: BaseUserConfigration) -> dict[str, str]:
+def generate_qrcode_uri(request: Request, data: BaseUserConfigration) -> ImageUriResponse:
     """
     Generate a QR code as PNG Data URI for the given data.
     """

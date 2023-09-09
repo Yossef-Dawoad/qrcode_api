@@ -122,5 +122,5 @@ class vCardUserConfigration(ProUserConfigration):
         return v
 
 
-class ImageUriResponse:
+class ImageUriResponse(BaseModel):
     image: str

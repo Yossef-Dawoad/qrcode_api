@@ -11,7 +11,7 @@ router = APIRouter(
 
 
 @router.post("/generate-uri", response_model=ImageUriResponse)
-def generate_pro_qrcode_uri(data: ProUserConfigration) -> dict:
+def generate_pro_qrcode_uri(data: ProUserConfigration) -> ImageUriResponse:
     """
     Generate a QR code as PNG Data URI for the given data.
     """
